@@ -10,10 +10,16 @@ public class MockSwitch implements LightbulbAccessory, AccessoryWithHardwareRevi
 	
 	private boolean powerState = false;
 	private HomekitCharacteristicChangeCallback subscribeCallback = null;
+	private static int g_id = 2;
+	private int id;
+
+	public MockSwitch() {
+		id = g_id++;
+	}
 
 	@Override
 	public int getId() {
-		return 2;
+		return id;
 	}
 
 	@Override
@@ -58,7 +64,7 @@ public class MockSwitch implements LightbulbAccessory, AccessoryWithHardwareRevi
 		if (subscribeCallback != null) {
 			subscribeCallback.changed();
 		}
-		System.out.println("The lightbulb is now "+(powerState ? "on" : "off"));
+		System.out.println("The lightbulb is now (light_id " + id +(powerState ? ") on" : ") off"));
 		return CompletableFuture.completedFuture(null);
 	}
 
